@@ -5,8 +5,9 @@ import dotenv from "dotenv"
 dotenv.config();
 import mongoose from "mongoose";
 import morgan from "morgan";
-//import authRouter from "./src/routes/authenticationRoute.js";
+import userRoute from "./routes/userRoute.js"
 //import carRouter from "./src/routes/carRoute.js";
+import errorHandler from "./middleWare/errorMiddleware.js";
 
 
 const app =express();
@@ -21,8 +22,19 @@ app.use(morgan("dev"))
 
 
 let port = process.env.PORT || 5000; 
+//Middlewares
 
- 
+app.use(express.json())
+app.use(express.urlencoded({extended: false}))
+app.use(bodyParser.json());
+//error MIddleWAre
+app.use(errorHandler);
+//Routes Middle ware
+app.use("/api/users", userRoute)
+ //Routes
+ app.get("/", (req, res)=>{
+ res.send("HOME PAGE");
+ });
 
 console.log(process.env.DB_CONNECTION_DEV);
 mongoose.connect(process.env.DB_CONNECTION_PROD).then((res) =>{

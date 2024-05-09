@@ -8,6 +8,8 @@ import morgan from "morgan";
 import userRoute from "./routes/userRoute.js"
 //import carRouter from "./src/routes/carRoute.js";
 import errorHandler from "./middleWare/errorMiddleware.js";
+import cookieParser from 'cookie-parser';
+
 
 
 const app =express();
@@ -37,7 +39,7 @@ app.use("/api/users", userRoute)
  });
 
 console.log(process.env.DB_CONNECTION_DEV);
-mongoose.connect(process.env.DB_CONNECTION_PROD).then((res) =>{
+mongoose.connect(process.env.DB_CONNECTION_DEV).then((res) =>{
   console.log("Database connected");
 });
 app.listen(port, () => {

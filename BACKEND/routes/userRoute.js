@@ -1,14 +1,14 @@
 import express from "express";
-//import {login} from "../controllers/authentication/login.js";
-//import { signup } from "../controllers/authentication/signup.js";
-//import { logger } from "../middleware/logger.js";
-import { registerUser } from "../controllers/userController.js";
+import { registerUser, loginUser,logout,getUser, loginStatus} from "../controllers/userController.js";
+import protect from "../middleWare/authMiddleware.js";
+
 const userRouter = express.Router();
-
-
-//authRouter.post("/login", login);
 userRouter.post("/register",registerUser);
-//authRouter.post("/changePassword", changePassword);
+userRouter.post("/login",loginUser);
+userRouter.get("/logout",logout);
+userRouter.get("/getuser",protect,getUser);
+userRouter.get("/",loginStatus);
+
  
 
 export default userRouter;
